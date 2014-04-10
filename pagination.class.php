@@ -23,18 +23,18 @@ class pagination{
 		return $this->limited_result;
 	}
 
-	function render(){
-		$last_page = floor($this->result->num_rows/10);
+	function render($pagination_number){
+		$last_page = floor($this->result->num_rows/$this->page_size);
 		$prev_page = $this->current_page <= 1 ? 1 : $this->current_page - 1;
 		$next_page = $this->current_page >= $last_page ? $last_page : $this->current_page + 1;
-		$lowerbound_page = $this->current_page - 5 >= 1 ? $this->current_page - 5 : 1;
-		$upperbound_page = $lowerbound_page + 10;
+		$lowerbound_page = $this->current_page - floor($pagination_number/2) >= 1 ? $this->current_page - floor($pagination_number/2) : 1;
+		$upperbound_page = $lowerbound_page + $pagination_number;
 		if($upperbound_page > $last_page){
 			$lowerbound_page -= $upperbound_page - $last_page;
 			$lowerbound_page = $lowerbound_page >= 1 ? $lowerbound_page : 1;
 			$upperbound_page = $last_page;
 		}
-		
+
 		echo "<style type='text/css'>";
 		echo "ul{display: inline-block;}";
 		echo "li{display: inline;}";

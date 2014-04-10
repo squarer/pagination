@@ -39,7 +39,7 @@ $result_per_page = $pager->get_result();
 
 </table>
 
-<?php $pager->render() ?>
+<?php $pager->render(10) ?>
 
 </body>
 </html>
